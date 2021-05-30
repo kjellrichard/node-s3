@@ -6,7 +6,7 @@ const {readFile,unlink} = require('fs/promises')
 const s3 = new S3Client({ region: process.env.AWS_REGION })
 const Bucket = process.env.AWS_BUCKET
 
-module.exports.uploadFile = async function uploadFile({filename, verbose=false, deleteAfter=false, storageClass},) { 
+module.exports.uploadFile = async function uploadFile({filename, verbose=false, deleteAfter=false, storageClass='STANDARD'},) { 
     const start = Date.now();     
     const Body = await readFile(filename);
     const Key = path.basename(filename);
@@ -19,7 +19,8 @@ module.exports.uploadFile = async function uploadFile({filename, verbose=false, 
     return {
         _response: data,
         name: Key,
-        elapsed
+        elapsed,
+        storageClass
     }
 };
 
