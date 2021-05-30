@@ -3,7 +3,7 @@ const {uploadFile} = require('./s3');
 const {rmdir} = require('fs/promises');
 const os = require('os');
 const {basename} = require('path')
-module.exports.move = async function move({target, verbose = false, directory, storageClass}) {    
+module.exports.move = async function move({target, verbose = false, directory, storageClass='STANDARD'}) {    
     const start = Date.now();
     if (!target)
         target = `${os.tempdir || '.'}/${basename(directory)}.zip`;
@@ -19,6 +19,7 @@ module.exports.move = async function move({target, verbose = false, directory, s
         elapsed,
         archiveElapsed: archiveResult.elapsed,
         uploadElapsed: uploadResult.elapsed,
-        name: uploadResult.name        
+        name: uploadResult.name,
+        storageClass       
     }
 }
