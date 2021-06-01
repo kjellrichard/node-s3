@@ -13,9 +13,9 @@ async function createArchive({ files, target, verbose = false, directory } = {})
         output.on('close', function () {
             const bytes = archive.pointer();
             const elapsed = Math.floor((Date.now() - start) / 1000);
-            const fileCount = files?.length;  
+            const fileCount = files?.length;
             let size;
-            if ( bytes / 1024 / 1024 >= 1)
+            if (bytes / 1024 / 1024 >= 1)
                 size = `${Math.round(bytes / 1024 / 1024, 1)}MB`;
             else
                 size = `${Math.round(bytes / 1024, 1)}KB`
@@ -32,7 +32,7 @@ async function createArchive({ files, target, verbose = false, directory } = {})
         // It is not part of this library but rather from the NodeJS Stream API.
         // @see: https://nodejs.org/api/stream.html#stream_event_end
         output.on('end', function () {
-            //logger && logger.log('verbose', 'Data has been drained');
+
         });
 
         // good practice to catch warnings (ie stat failures and other non-blocking errors)
@@ -41,13 +41,12 @@ async function createArchive({ files, target, verbose = false, directory } = {})
                 // log warning
                 // logger && logger.log('verbose','WARNING:', err.message)
             } else {
-                // throw error
                 reject(err)
             }
         });
 
         // good practice to catch this error explicitly
-        archive.on('error', function (err) {
+        archive.on('error', function (err) {            
             reject(err);
         });
 
@@ -65,7 +64,7 @@ async function createArchive({ files, target, verbose = false, directory } = {})
         }
 
         if (directory) {
-            archive.directory(directory,false);
+            archive.directory(directory, false);
         }
 
         archive.finalize();
