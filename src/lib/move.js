@@ -36,7 +36,8 @@ module.exports.move = async function move({ target, directory, storageClass, par
         archiveElapsed: archiveResult.elapsed,
         uploadElapsed: uploadResult.elapsed,
         name: uploadResult.name,
-        storageClass
+        storageClass,
+        fileCount
     }
     trace && trace({ type: 'End', payload: result })
     return result;
