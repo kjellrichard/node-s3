@@ -19,8 +19,7 @@ async function uploadMultipartWithStream({ filename, storageClass = DEFAULT_STOR
     const stream = createReadStream(filename, { highWaterMark: 1024 * 1024 * partSizeMb });
     let partNumber = 1;
     for await (const data of stream) {
-        const uploadParams = {
-            // add 1 to endOfPart due to slice end being non-inclusive
+        const uploadParams = {            
             Body: data,
             Bucket,
             Key,
